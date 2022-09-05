@@ -10,28 +10,24 @@ devideAndSort(5956560159466056)
 output
 55566914566956 */
 
-function pisahAngka(num) {
-  if (typeof num == "number") {
-    //rubah ke string
-    const str = num.toString();
+function devideAndSort(num) {
+  if (typeof num != "number") {
+    console.log("Parameter harus number");
+  } else {
+    const str = num.toString().split("0");
 
-    // merubah inputan string pada parameter kedalam array dengan method split
-    const arrayAngka = str.split("0");
-    // hasil "595656" "159466" "56"
-
-    // split array
-    for (let i = 0; i < arrayAngka.length; i++) {
-      arrayAngka[i] = arrayAngka[i].split("");
+    for (let i = 0; i < str.length; i++) {
+      str[i] = str[i].split("");
     }
-    // split dan join
-    for (let i = 0; i < arrayAngka.length; i++) {
-      arrayAngka[i] = arrayAngka[i].sort().join("");
+    // console.log(str);
+    for (let i = 0; i < str.length; i++) {
+      str[i] = str[i].sort().join("");
     }
+    // console.log(str);
 
-    //join
-    const hasilSorting = arrayAngka.join("");
-    console.log(hasilSorting);
+    const hasilAkhir = str.join("");
+    console.log(hasilAkhir);
   }
 }
 
-pisahAngka(54350765560213);
+devideAndSort(5430234501231);

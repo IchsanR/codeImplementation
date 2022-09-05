@@ -26,7 +26,7 @@ function checkPalindrom(palindrom) {
     console.log("Kata tersebut bukan palindrome");
   }
 }
-checkPalindrom("malam");
+checkPalindrom("mlam");
 
 // 1b
 function reverseWord(kata) {

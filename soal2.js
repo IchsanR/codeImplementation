@@ -36,102 +36,111 @@ function pijarFood(harga, voucher, jarak, pajak) {
   let c = jarak;
   let d = pajak;
 
-  // biaya antar yang di ambil dari variable jarak
-  const biayaAntar = function () {
-    let minJarak = 2;
-    let hSJarak = 3000;
-    let tHarga = 0;
+  if (
+    typeof a != "number" ||
+    typeof b != "string" ||
+    typeof c != "number" ||
+    typeof d != "boolean"
+  ) {
+    console.log("Tipe data harus sesuai");
+  } else {
+    // biaya antar yang di ambil dari variable jarak
+    const biayaAntar = () => {
+      let minJarak = 2;
+      let hSJarak = 3000;
+      let tHarga = 0;
 
-    if (c <= minJarak) {
-      tHarga = 5000;
-    } else {
-      for (let i = 1; i <= c - minJarak; i++) {
-        tHarga = i * hSJarak + 5000;
-      }
-    }
-    return tHarga;
-  };
-
-  // set diskon
-  let diskon = 0;
-  const disc = () => {
-    if (b == "PIJARFOOD5") {
-      if (a >= 50000) {
-        diskon = 0.5;
+      if (c <= minJarak) {
+        tHarga = 5000;
       } else {
-        diskon = 0;
+        for (let i = 1; i <= c - minJarak; i++) {
+          tHarga = i * hSJarak + 5000;
+        }
       }
-    }
-    if (b == "DITRAKTIRPIJAR") {
-      if (a >= 25000) {
-        diskon = 0.6;
+      return tHarga;
+    };
+
+    // set diskon
+    let diskon = 0;
+    const disc = () => {
+      if (b == "PIJARFOOD5") {
+        if (a >= 50000) {
+          diskon = 0.5;
+        } else {
+          diskon = 0;
+        }
+      }
+      if (b == "DITRAKTIRPIJAR") {
+        if (a >= 25000) {
+          diskon = 0.6;
+        } else {
+          diskon = 0;
+        }
+      }
+      return diskon;
+    };
+
+    // total diskon
+    const psDis = () => {
+      let potongan = a * disc();
+      return potongan;
+    };
+
+    // harga setelah diskon
+    const promo = () => {
+      let p = psDis();
+      if (p == 0) {
+        p;
       } else {
-        diskon = 0;
+        p = a - p;
       }
-    }
-    return diskon;
-  };
+      return p;
+    };
 
-  // total diskon
-  const psDis = () => {
-    let potongan = a * disc();
-    return potongan;
-  };
+    // harga dari voucher
+    const hVch = () => {
+      let x = 50000;
+      let z = 30000;
+      let y = promo();
+      if (b == "PIJARFOOD5") {
+        if (y > x) {
+          y = x;
+        } else {
+          y;
+        }
+      }
+      if (b == "DITRAKTIRPIJAR") {
+        if (y > z) {
+          y = z;
+        } else {
+          y;
+        }
+      }
 
-  // harga setelah diskon
-  const promo = () => {
-    let p = psDis();
-    if (p == 0) {
-      p;
-    } else {
-      p = a - p;
-    }
-    return p;
-  };
+      return y;
+    };
 
-  // harga dari voucher
-  const hVch = () => {
-    let x = 50000;
-    let z = 30000;
-    let y = promo();
-    if (b == "PIJARFOOD5") {
-      if (y > x) {
-        y = x;
+    // pajak
+    const pjk = () => {
+      let sPjk = 0;
+      if (d === true) {
+        sPjk = a * 0.05;
       } else {
-        y;
+        sPjk = a * 0;
       }
-    }
-    if (b == "DITRAKTIRPIJAR") {
-      if (y > z) {
-        y = z;
-      } else {
-        y;
-      }
-    }
+      return sPjk;
+    };
 
-    return y;
-  };
+    let subtotal = a + biayaAntar() + pjk() - hVch();
 
-  // pajak
-  const pjk = () => {
-    let sPjk = 0;
-    if (d === true) {
-      sPjk = a * 0.05;
-    } else {
-      sPjk = a * 0;
-    }
-    return sPjk;
-  };
-
-  let subtotal = a + biayaAntar() + pjk() - hVch();
-
-  console.log(
-    `Harga = ${a}
+    console.log(
+      `Harga = ${a}
     potongan = ${hVch()}
     biaya antar = ${biayaAntar()}
     pajak = ${pjk()}
     subtotal = ${subtotal}`
-  );
+    );
+  }
 }
 
 pijarFood(50000, "PIJARFOOD5", 5, true);
